@@ -32,7 +32,9 @@ export const userSchema = new Schema<TUser>({
         type: String,
         enum: ["admin", "user"]
     }
-});
+},
+    { timestamps: true }
+);
 
 
 export const UserModel = model<TUser>("User", userSchema)
