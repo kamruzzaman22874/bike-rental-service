@@ -5,9 +5,13 @@ const router = Router()
 
 const moduleRoutes = [
     {
-        path: "/users",
+        path: "/auth",
         route: UserRoutes
-    }
+    },
+    // {
+    //     path: "/auth",
+    //     route: UserRoutes
+    // },
 ]
 
 moduleRoutes.forEach(route => router.use(route.path, route.route))
