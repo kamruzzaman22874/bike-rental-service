@@ -7,7 +7,7 @@ import { USER_ROLE } from './constant';
 const router = express.Router();
 
 // 
-router.post("/signup", auth(USER_ROLE.admin), validateRequest(UserValidation.userValidationSchema), UserController.userSignUp);
+router.post("/signup", validateRequest(UserValidation.userValidationSchema), UserController.userSignUp);
 
 
 router.post(

@@ -42,22 +42,36 @@ const createBooking = async (id: string, payload: TBooking) => {
 }
 
 const getAllBookings = async (carId?: string, date?: string) => {
-    console.log(carId)
     const query: any = { status: "available" };
-    if (carId) query.car = carId;
+    if (carId) query.carId = carId;
     if (date) query.date = date;
 
-    const bookings = await Bookings.find(query)
-        .populate('User', '-password')
-        .populate('Cars')
+    const bookings = await Bookings.find({ carId: carId, date: date })
+        .populate('userId')
+        .populate('carId')
         .exec();
 
     return bookings;
 };
 
+
+const getSingleUserBooking = async (payload: any) => {
+    console.log(payload)
+    const bookingsData = await Bookings.find({ userId: payload.userId })
+        // const bookings = await Bookings.find({ carId: carId, date: date })
+        .populate('userId')
+        .populate('carId')
+        .exec();
+    return bookingsData;
+}
+
+
+
+
 export const BookingServices = {
     createBooking,
-    getAllBookings
+    getAllBookings,
+    getSingleUserBooking
 };
 
 

@@ -18,6 +18,10 @@ const moduleRoutes = [
         path: "",
         route: BookingsRoute
     },
+    {
+        path: "/bookings",
+        route: BookingsRoute
+    },
 ]
 
 moduleRoutes.forEach(route => router.use(route.path, route.route))
