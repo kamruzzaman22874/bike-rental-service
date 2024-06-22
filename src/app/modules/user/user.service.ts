@@ -22,32 +22,20 @@ const signupIntoToDB = async (payload: TUser) => {
 
 const loginIntoDb = async (data: Partial<TUser>) => {
     const result = await User.isUserExistsByEmail(data.email as string);
-
-
     if (!result) {
         throw new AppError(httpStatus.NOT_FOUND, 'This user is not found !');
     }
-
     if (!(await User.isPasswordMatched(data?.password as string, result?.password)))
         throw new AppError(httpStatus.FORBIDDEN, 'Password do not matched');
 
     const jwtPayload = {
-        email: result.email,
-        role: result.role,
+        email: result?.email,
+        role: result?.role,
+        userId: result?._id
     };
-
     const token = jwt.sign(jwtPayload, config.jwt_access_secret as string, {
         expiresIn: '10d',
     });
-
-    // const refreshToken = jwt.sign(
-    //     jwtPayload,
-    //     config.jwt_refresh_secret as string,
-    //     {
-    //         expiresIn: '10d',
-    //     },
-    // );
-
     const user = result.toObject();
     delete user.password;
     delete user.createdAt;
@@ -55,8 +43,6 @@ const loginIntoDb = async (data: Partial<TUser>) => {
 
     return {
         token,
-        // refreshToken,
-        // result,
         user
     };
 };

@@ -18,7 +18,8 @@ export const userSchema = new Schema<TUser, UserModel>({
 
     password: {
         type: String,
-        required: true
+        required: true,
+        select: 0
     },
     phone: {
         type: String,
@@ -36,7 +37,7 @@ export const userSchema = new Schema<TUser, UserModel>({
     { timestamps: true }
 );
 
-
+//set password
 userSchema.pre("save", async function (next) {
     // eslint-disable-next-line @typescript-eslint/no-this-alias
     const user = this;

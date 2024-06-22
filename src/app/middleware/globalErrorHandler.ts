@@ -14,7 +14,7 @@ import handleDuplicateError from '../error/handleDuplicateError';
 import handlecastnErr from '../error/handleCastError';
 import { TErrorSources } from '../globalInterface/error.interface';
 import handelerError from '../error/handleZodError';
-import handleValidationErr from '../error/handleValidationError';
+import { handleValidationError } from '../error/handleValidationError';
 
 const globalErrorHandeler = (
     error: any,
@@ -38,7 +38,7 @@ const globalErrorHandeler = (
             (message = simplifiedError?.message),
             (errorSources = simplifiedError?.errorSources);
     } else if (error?.name === 'ValidationError') {
-        const simplifiedError = handleValidationErr(error);
+        const simplifiedError = handleValidationError(error);
         (statusCode = simplifiedError?.statusCode),
             (message = simplifiedError?.message),
             (errorSources = simplifiedError?.errorSources);
